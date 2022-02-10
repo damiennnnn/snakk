@@ -57,8 +57,8 @@ bool Grid::Update(){
 	if (snake_tail.size() > len)
 		snake_tail.erase(snake_tail.begin());
 	snake_head = (snake_head+direction);
-
-	return false;
+	
+	return ((snake_head.second > GRID_HEIGHT || snake_head.second < 0) ||(snake_head.first > GRID_WIDTH || snake_head.first < 0));
 }
 
 void Grid::Draw(){
