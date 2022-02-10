@@ -57,8 +57,8 @@ int main(void) {
 		printf("\x1b[2;0Hsnack - damien");
 		printf("\x1b[3;0Hlength: %d      ", _grid.GetLength());
 		printf("\x1b[5;0Hticker: %d      ", ticker);
-		printf("\x1b[5;0Hticker2: %d      ", ticker2);
-
+		printf("\x1b[6;0Hticker2: %d      ", ticker2);
+		//printf("\x1b[6;0Hlength: %d", _grid.GetLength());
 		printf("\x1b[9;0Htouch x: %d y: %d          ", data.px, data.py);
 		printf("\x1b[10;0Hvolume: %d          ", g_vol);
 

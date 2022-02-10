@@ -8,10 +8,12 @@ private:
 	std::vector<std::pair<int,int>> pellets;
 	std::vector<std::pair<int,int>> snake_tail;
 	std::pair<int,int> direction;
+
+	int len;
 public:
 	std::pair<int,int> snake_head;
 	Grid();
-	void Update();
+	bool Update(); // returns true if snake is dead, reset
 	void NewPellets();
 	void Draw();
 	int GetLength();

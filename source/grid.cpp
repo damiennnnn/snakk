@@ -7,6 +7,7 @@ std::pair<T,U> operator+(const std::pair<T,U> & l,const std::pair<T,U> & r) {
 
 Grid::Grid(){
 
+	len=0;
 	for (int i=0 ; i < PELLET_COUNT; i++){
 		int x= rand() % GRID_WIDTH;
 		int y= rand() % GRID_HEIGHT;
@@ -30,17 +31,33 @@ void Grid::NewPellets(){
 	}
 
 }
-void Grid::Update(){
+bool Grid::Update(){
 
 	bool _eaten = false;
+	int to_remove = -1;
+	for (int i =0 ; i < pellets.size(); i++){
+		if (pellets[i] == snake_head)
+		{
+			_eaten = true;
+			len	++;
+			to_remove = i;
+		}
 
-
-	if (_eaten){
-		snake_tail.push_back(snake_head);
 	}
-
+	if (_eaten){
+		pellets.erase(pellets.begin() + to_remove);
+	}
+	
+	for (int i =0 ; i < snake_tail.size() ; i++){
+		if (snake_tail[i] == snake_head)
+			return true;
+	}
+	snake_tail.push_back(snake_head);
+	if (snake_tail.size() > len)
+		snake_tail.erase(snake_tail.begin());
 	snake_head = (snake_head+direction);
 
+	return false;
 }
 
 void Grid::Draw(){
@@ -54,10 +71,14 @@ void Grid::Draw(){
 		glBoxFilled(pellets[i].first*4, pellets[i].second*4, (pellets[i].first*4) +2,
 		 (pellets[i].second*4) + 2, RGB15(0,15,0));
 	}
+	for (int i =0 ; i < snake_tail.size(); i++){
+		glBoxFilled(snake_tail[i].first * 4, snake_tail[i].second*4, (snake_tail[i].first * 4) + 2 ,
+		 (snake_tail[i].second * 4) + 2, RGB15(8,8,8));
+	}
 }
 
 int Grid::GetLength(){
-	return snake_tail.size();
+	return len;
 }
 
 void Grid::SnakeLeft(){
@@ -67,10 +88,10 @@ void Grid::SnakeRight(){
 	direction = std::make_pair(1,0);
 }
 void Grid::SnakeUp(){
-	direction = std::make_pair(0,1);
+	direction = std::make_pair(0,-1);
 }
 void Grid::SnakeDown(){
-	direction = std::make_pair(0,-1);
+	direction = std::make_pair(0,1);
 }
 
 std::pair<int,int> Grid::SnakePos(){
