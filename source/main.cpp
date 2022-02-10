@@ -51,11 +51,17 @@ int main(void) {
 		_grid.Draw();
 		ticker++;
 
-		if ((ticker % 10) == 0)
-			{ticker2++;		_grid.Update();}
+		if ((ticker % 5) == 0)
+		{
+			ticker2++;		
+			if (_grid.Update()){
+				_grid.Init();
+		}}
 
 		printf("\x1b[2;0Hsnack - damien");
 		printf("\x1b[3;0Hlength: %d      ", _grid.GetLength());
+		printf("\x1b[4;0Hscore: %d      ", _grid.GetLength()-3);
+		
 		printf("\x1b[5;0Hticker: %d      ", ticker);
 		printf("\x1b[6;0Hticker2: %d      ", ticker2);
 		//printf("\x1b[6;0Hlength: %d", _grid.GetLength());

@@ -1,7 +1,7 @@
 #include "includes.h"
 #define GRID_HEIGHT 48
 #define GRID_WIDTH 64
-#define PELLET_COUNT 10
+#define PELLET_COUNT 20
 class Grid{
 private:
 	
@@ -13,6 +13,7 @@ private:
 public:
 	std::pair<int,int> snake_head;
 	Grid();
+	void Init(); // initialise the game
 	bool Update(); // returns true if snake is dead, reset
 	void NewPellets();
 	void Draw();
